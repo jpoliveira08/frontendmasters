@@ -6,4 +6,5 @@ app.store = Store;
 app.router = Router;
 
 window.addEventListener("DOMContentLoaded", async () => {
+    app.router.init();
 });
