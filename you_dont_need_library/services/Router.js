@@ -11,6 +11,10 @@ const Router = {
                 Router.go(url);
             })
         })
+        // Event handler for URL changes
+        window.addEventListener("popstate", event => {
+            Router.go(event.state.route, false); // Just because we have route in the state from the pushState function
+        });
         // Check the initial URL
         Router.go(location.pathname);
     },
@@ -35,6 +39,13 @@ const Router = {
                 pageElement = document.createElement("h1");
                 pageElement.textContent = "Your Order"
                 break;
+            default:
+                if (route.startsWith("/product-")) {
+                    pageElement = document.createElement("h1");
+                    pageElement.textContent = "Details"
+                    const paramId = route.substring(route.lastIndexOf("-") + 1);
+                    pageElement.dataset.id = paramId; // Like setting data-id="123" in the HTML element
+                }
         }
         if (pageElement) {
             document.querySelector("main").children[0]?.remove();
